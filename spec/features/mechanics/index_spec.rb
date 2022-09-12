@@ -1,8 +1,8 @@
 require 'rails_helper'
-
+#Story 1 - Mechanic Index Page
 RSpec.describe 'the mechanics index page' do
   describe 'As a user, When I visit the mechanics index page' do
-    it "has a list of all mechanics names and their years of expperience" do
+    it "has a list of all mechanics names and their years of experience" do
       tom = Mechanic.create!(name: "Tom", years_experience: 10)
       zach = Mechanic.create!(name: "Zach", years_experience: 9)
       alex = Mechanic.create!(name: "Alex", years_experience: 8)
