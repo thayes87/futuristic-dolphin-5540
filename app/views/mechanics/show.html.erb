@@ -7,3 +7,9 @@
 <% @display_rides.each do |ride| %>
 <p>Name: <%= ride.name %></p>
 <% end %>
+
+<%= form_with url:"/mechanics/#{@mechanic.id}/edit", method: :patch, local: true do |form| %>
+  <%= form.label :ride_id, "Ride ID" %>
+  <%= form.text_field :ride_id %>
+  <%= form.submit "Submit" %>
+<% end %>

@@ -42,7 +42,7 @@ RSpec.describe 'the mechanics show page' do
     end
   end
   describe 'As a user I can add rides to a mechanics workload' do
-    it 'has a form to add a ride to a mechanic' do 
+    it 'has a form to add an exisitng ride to a mechanic' do 
       @six_flags = AmusementPark.create!(name: 'Six Flags', admission_cost: 75)
 
       @hurler = @six_flags.rides.create!(name: 'The Hurler', thrill_rating: 7, open: true)
