@@ -41,4 +41,36 @@ RSpec.describe 'the mechanics show page' do
       end
     end
   end
+  describe 'As a user I can add rides to a mechanics workload' do
+    it 'has a form to add a ride to a mechanic' do 
+      @six_flags = AmusementPark.create!(name: 'Six Flags', admission_cost: 75)
+
+      @hurler = @six_flags.rides.create!(name: 'The Hurler', thrill_rating: 7, open: true)
+      @scrambler = @six_flags.rides.create!(name: 'The Scrambler', thrill_rating: 4, open: true)
+      @ferris = @six_flags.rides.create!(name: 'Ferris Wheel', thrill_rating: 2, open: false)
+      @tea_cup = @six_flags.rides.create!(name: 'Tea Cup', thrill_rating: 3, open: true)
+      
+      @tom = Mechanic.create!(name: "Tom", years_experience: 10)
+      @zach = Mechanic.create!(name: "Zach", years_experience: 9)
+
+      MechanicRide.create!(mechanic_id: @tom.id, ride_id: @hurler.id)
+      MechanicRide.create!(mechanic_id: @tom.id, ride_id: @scrambler.id)
+      MechanicRide.create!(mechanic_id: @tom.id, ride_id: @ferris.id)
+  
+      visit "/mechanics/#{@tom.id}"
+
+      expect(page).to have_content("Ride ID")
+      fill_in("Ride ID", with: "#{@tea_cup.id}")
+
+      click_on("Submit")
+      expect(current_path).to eq("/mechanics/#{@tom.id}")
+
+      within "#Rides" do
+        expect(page).to have_content("Name: The Hurler")
+        expect(page).to have_content("Name: The Scrambler")
+        expect(page).to have_content("Name: Tea Cup")
+        expect(page).to_not have_content("Name: Ferris Wheel")
+      end 
+    end
+  end
 end 
